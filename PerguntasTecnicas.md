@@ -6,4 +6,4 @@
 
 2. Se usou algum framework, qual foi o motivo de ter usado este? Caso contrário, por que não utilizou nenhum?
 
-[:back: Voltar](https://github.com/afermanx/climate)
+[:leftwards_arrow_with_hook: Voltar](https://github.com/afermanx/climate)
