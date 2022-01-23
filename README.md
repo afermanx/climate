@@ -7,3 +7,6 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+[:memo: Perguntas Técnicas :heavy_check_mark:](https://github.com/afermanx/climate/blob/main/PerguntasTecnicas.md)
+
+
