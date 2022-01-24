@@ -17,7 +17,13 @@ class SelectCity extends Component
    
 
     protected $rules=[
-        'states'=>'require'
+        'cityId'=>'required'
+    ];
+
+    protected $messages = [
+        'cityId.required' => 'Selecione uma cidade para continuar-mos',
+       
+
     ];
 
     public function mount()
@@ -37,7 +43,7 @@ class SelectCity extends Component
 
     public function searchCity()
     {       
-
+        $this->validate();
       
         #recebo os parametros selecionado  e emito o evento com os mesmo.
         $CityUF = City::with('state')->where('id', $this->cityId)->first();
