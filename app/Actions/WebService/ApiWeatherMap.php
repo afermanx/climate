@@ -2,9 +2,7 @@
 
 namespace App\Actions\WebService;
 
-
-
-
+use App\Models\Climate;
 
 class ApiWeatherMap
 {
@@ -17,7 +15,17 @@ class ApiWeatherMap
 
      const BASE_URL="https://api.openweathermap.org";
 
+/**
+      * Name da cidade
+      * @var string 
+      */
+      private $cityName;
 
+      /**
+      * uf
+      * @var string 
+      */
+      private $ufName;
 
      /**
       * KEY DE ACCESSO A API
@@ -42,6 +50,9 @@ class ApiWeatherMap
        */
       public function searchClimate($city, $uf )
       {
+        $this->cityName = $city;
+        $this->ufName = $uf;
+
         return $this->get('/data/2.5/weather',[
             'q' => $city.',BR-'.$uf.',BRA'
         ]);
@@ -67,7 +78,7 @@ class ApiWeatherMap
           #endpoint para cidades BR
           
           $endpoint = self::BASE_URL.$resource.'?'.http_build_query($params);
-
+          
             # iniciar e setra as comfig do CURL
             $curl = curl_init();
 
@@ -86,11 +97,24 @@ class ApiWeatherMap
             curl_close($curl);
 
 
-            #pegar o retorno e salvar na tabela climate
+            #pegar o retorno salvar ou atualiza a tabela climate com o typo e o data
+            $dataClimate = Climate::select('id')->where('type', $this->cityName.$this->ufName)->first();
 
-
-            # reposnta em array 
-            return json_decode($response, true);
+            if($dataClimate){
+               $update = Climate::where('id',$dataClimate->id )->update([
+                    'type' => $this->cityName.$this->ufName,
+                    'data' => $response
+                ]);
+                       
+            return  $update;
+            }else{
+                $create = Climate::create([
+                    'type' => $this->cityName.$this->ufName,
+                    'data' => $response
+                ]); 
+                          
+            return  $create;
+            }
     
 
       }
