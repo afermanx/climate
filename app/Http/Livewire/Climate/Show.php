@@ -33,9 +33,11 @@ class Show extends Component
 
         # no mount verifico se ha dados no banco e se eles é maior ou igual 20min
         # se nao conter dados ou passou de 20min da ultima Req ele chama a api se nao pega no banco
-
         $dataClimate = Climate::select('data', 'created_at', 'updated_at')
             ->where('type', $this->city . $this->uf)->first();
+
+        if($dataClimate!=null){
+        
         $dateCreate = Carbon::parse($dataClimate->created_at);
         $dateUpdate = Carbon::parse($dataClimate->updated_at);
         $this->date = Carbon::now();
@@ -50,6 +52,19 @@ class Show extends Component
 
             $this->messageAPI = "Consultando a API...";
         }
+
+    }else{
+        
+        $api = new ApiWeatherMap("fc0735eb4f130b0104f933eed6227fdb");
+        $api->searchClimate($this->city, $this->uf);
+
+        
+
+        $this->messageAPI = "Consultando a API...";
+
+        $dataClimate = Climate::select('data', 'created_at', 'updated_at')
+        ->where('type', $this->city . $this->uf)->first();
+    }
 
 
         $climate =  json_decode($dataClimate->data);
@@ -67,8 +82,9 @@ class Show extends Component
     }
     public function search($city, $uf)
     {
+        
 
-        # no search recebo os parametro do compoenent SelectCity e com eles verifico se ha dados no banco e se eles é maior ou igual 20min
+        # no search recebo os parabetro do compoenent searchCity e com verifico se ha dados no banco e se eles é maior ou igual 20min
         # se nao conter dados ou passou de 20min da ultima Req ele chama a api se nao pega no banco
 
         $dataClimate = Climate::select('data', 'created_at', 'updated_at')

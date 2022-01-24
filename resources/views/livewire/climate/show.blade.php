@@ -21,7 +21,7 @@
                     <div class="flex items-center justify-between mb-4">
                         <div>
                             <h5 class="mb-0 text-xl font-medium">{{ $city}}/{{ $uf }}</h5>
-                            <h6 class="mb-0">{{$date}}</h6><small > {{$statusClimate }}</small>
+                            <h6 class="mb-0">{{$date->format('D d/m/Y')}}</h6><small > {{$statusClimate }}</small>
                         </div>
                         <div class="text-right">
                             <h3 class="mb-0 text-4xl font-bold"><span>{{ $temperature =="Dados não encontrado" ?'Dados não encontrado': $temperature.'°' }}</span></h3>
