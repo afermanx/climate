@@ -48,19 +48,7 @@ class ApiWeatherMap
 
       }
 
-      /**
-       * obtem o clima de uma cidade
-       * @param string $city
-       * @param string $uf       * 
-       * @return array
-       */
-      public function searchForecast($city, $uf )
-      {
-        return $this->get('/data/2.5/forecast',[
-            'q' => $city.',BR-'.$uf.',BRA'
-        ]);
-
-      }
+     
       /**
        * Executa a query get na api
        * @param string $resource
@@ -99,7 +87,7 @@ class ApiWeatherMap
 
 
             #pegar o retorno e salvar na tabela climate
-            
+
 
             # reposnta em array 
             return json_decode($response, true);

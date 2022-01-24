@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <wireui:scripts />
         @hasSection('title')
 
             <title>@yield('title') - {{ config('app.name') }}</title>
@@ -21,6 +22,7 @@
         @livewireStyles
 
         <!-- Scripts -->
+        <wireui:scripts />
         <script src="{{ url(mix('js/app.js')) }}" defer></script>
 
         <!-- CSRF Token -->
@@ -29,7 +31,7 @@
 
     <body>
         @yield('body')
-
+        
         @livewireScripts
     </body>
 </html>
